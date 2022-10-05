@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/todo")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class TarefaController {
 
     @Autowired
