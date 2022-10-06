@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,7 +26,7 @@ public class TarefaController {
     private TarefaService tarefaService;
 
     @PostMapping
-    public ResponseEntity<Tarefa> criar(@Validated(Tarefa.class) @RequestBody Tarefa tarefa, HttpServletResponse response) {
+    public ResponseEntity<Tarefa> criar(@Validated(Tarefa.class) @RequestBody Tarefa tarefa) {
         Tarefa tarefaSalva = tarefaRepository.save(tarefa);
         return ResponseEntity.status(HttpStatus.CREATED).body(tarefaSalva);
     }
@@ -35,6 +34,7 @@ public class TarefaController {
     @GetMapping
     public ResponseEntity<List<TarefaDto>> findAll() {
         return ResponseEntity.ok(tarefaRepository.findAll().stream().map(dto-> TarefaDto.builder()
+                .id(dto.getId())
                 .descricao(dto.getDescricao())
                 .concluido(dto.getConcluido())
                 .build()).collect(Collectors.toList()));

@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class TarefaDto {
+    private Long id;
     private String descricao;
     private Boolean concluido;
 }
